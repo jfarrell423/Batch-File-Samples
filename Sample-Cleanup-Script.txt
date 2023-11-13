@@ -1,0 +1,11 @@
+# Batch Commands
+# Batch Script to delete files older than 10 days.
+
+@echo off
+
+forfiles /p "%USERPROFILE%\Documents" /s /m *.docx /d -10 /c "cmd /c del @path"
+
+echo Document files older than 10 days deleted
+pause
+exit
+

@@ -1,0 +1,9 @@
+# Batch Commands
+@echo off
+:a
+If %time%==20:00:00:00 goto ::b
+goto a:
+:b
+shutdown.exe /s /f /t 120 /c "Rebooting"
+exit
+

@@ -1,0 +1,11 @@
+@echo off
+:: Open Folders
+start D:\Documents
+
+:: Open Files
+start chrome.exe
+start calc.exe
+start """%USERPROFILE%\Documents\Instructions.txt"
+
+exit
+
