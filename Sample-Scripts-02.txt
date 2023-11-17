@@ -1,0 +1,78 @@
+#Batch Commands
+start Word.exe
+start Firefox.exe
+
+runas /user:COMPUTER\user "C:\Word.exe"
+
+# Sample Cleanup Script Code
+@echo off
+forfiles /p "%USERPROFILE%\Documents" /s /m *.docx /d -10 /c "cmd del @path"
+echo Document files older than 10 days deleted
+pause
+exit
+
+# Sample Shutdown Script
+@echo off
+:a
+If %time%==20:00:00.00 goto b:
+goto a:
+
+b:
+# shutdown.exe /s /f /t 120 /c "Rebooting!!!!
+shutdown.exe /s /f /t 120 /c "Rebooting!!!!"
+exit
+
+# Sample Batch Command Using Robo Copy
+@echo off
+set sourcedir=C:\Users\USER
+set targetdir=D:\Backup
+robocopy %sourcedir% %targetdir% * /e /j /r:10 /v
+pause
+exit
+
+#PowerShell Commands
+Start-Process "Word.exe"
+Start-Process "Firefox.exe"
+
+PowerShell.exe -Command "Start-Process 'C:Word.exe' -Verb runas"
+
+# Power Shell Reboot 1
+Restart-Computer -Force
+
+# Power Shell Reboot 2
+Invoke-CimMethod -ComputerName COMPUTER `-ClassName 'Win32_OperatingSystem' -MethodName 'Reboot'`
+
+# Power Shell Backup Example
+wbAdmin start backup -backupTarget:D: -include:C: -allCriticle -quiet
+
+# Power Shell Automation
+Start-Process "Firefox.exe"
+Start-Process "Notepad.exe"
+Start-Process "cmd.exe"
+Start-Process "Taskmgr.exe"
+
+# Power Shell Script to remove all items in folder (forever?)
+Remove-Item -Path D:\\Documents\\Files\* -Recurse -Verbose
+
+#Get the Recycle Bin (List all files in recycle bin)
+(New-Object -ComObject Shell.Application).NameSpace(0x0a).Items() | Select-Object Name, Size, Path
+
+#Empty the Recycle Bin
+Clear-RecycleBin
+
+# function Remove-Item
+
+# Remove-Item [-Path] <string[]> [-Filter <string>] [-Include <string[]>] [-Exclude <string[]>] [-Recurse] [-Force] [-Credential <pscredential>] [-WhatIf] [-Confirm] [-Stream <string[]>] [<CommonParameters>]
+
+# Remove-Item -LiteralPath <string[]> [-Filter <string>] [-Include <string[]>] [-Exclude <string[]>] [-Recurse] [-Force] [-Credential <pscredential>] [-WhatIf] [-Confirm] [-Stream <string[]>] [<CommonParameters>]
+
+# Performing Windows Updates
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "D:\Course\Windows\Windows-Update\Log\$(Get-Date -f yyyy-MM-dd)-MSUpdates.Log" -Force
+
+# Install PSWindowsUpdate
+Install-Module PSWindowsUpdate
+ImportModule PSWindowsUpdate
+Get-WindowsUpdate
+
+
+
